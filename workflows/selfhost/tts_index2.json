@@ -1,17 +1,8 @@
 {
-  "3": {
-    "inputs": {
-      "text": "床前明月光，疑是地上霜。"
-    },
-    "class_type": "Text _O",
-    "_meta": {
-      "title": "$text.text!"
-    }
-  },
   "5": {
     "inputs": {
       "text": [
-        "3",
+        "14",
         0
       ],
       "mode": "Auto",
@@ -59,6 +50,15 @@
     "class_type": "VHS_LoadAudioUpload",
     "_meta": {
       "title": "$ref_audio.audio"
+    }
+  },
+  "14": {
+    "inputs": {
+      "text": "床前明月光，疑是地上霜。"
+    },
+    "class_type": "WildPromptor_TextInput",
+    "_meta": {
+      "title": "$text.text!"
     }
   }
 }

@@ -145,8 +145,8 @@
   },
   "47": {
     "inputs": {
-      "clip_name1": "clip_l.safetensors",
-      "clip_name2": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name1": "flux/clip_l.safetensors",
+      "clip_name2": "flux/t5xxl_fp16.safetensors",
       "type": "flux",
       "device": "default"
     },
@@ -157,7 +157,7 @@
   },
   "48": {
     "inputs": {
-      "unet_name": "flux1-dev.safetensors",
+      "unet_name": "flux1-dev-fp8.safetensors",
       "weight_dtype": "default"
     },
     "class_type": "UNETLoader",
@@ -167,7 +167,7 @@
   },
   "49": {
     "inputs": {
-      "vae_name": "ae.safetensors"
+      "vae_name": "flux/ae.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {

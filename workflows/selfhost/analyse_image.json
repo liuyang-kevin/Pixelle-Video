@@ -1,7 +1,7 @@
 {
   "5": {
     "inputs": {
-      "image": "IMG_20250829_201936.jpg"
+      "image": "ee84f580818058099cbd46c8b21636951709661901.png"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -10,35 +10,15 @@
   },
   "6": {
     "inputs": {
-      "text": "A small, fluffy ginger kitten with large, wide green eyes sits upright on a glossy white tiled floor, its paws planted firmly as it stares intently forward, exuding an air of innocent curiosity; beside it rests a colorful striped cat tunnel in hues of red, blue, purple, and green, while soft indoor light reflects off the polished surface around it, illuminating the scene with gentle warmth and creating subtle highlights on the kitten’s fur and whiskers — capturing a quiet moment of stillness within a cozy home setting.",
+      "text": "A young woman, likely in her late teens or early twenties, with dark, intricately styled hair adorned with floral accessories, stands in a traditional Chinese garden, holding a decorative fan that partially obscures her face. She wears an elaborate, colorful traditional outfit featuring a detailed, patterned bodice and sheer, flowing sleeves in soft blues and pinks, with a subtle, warm glow to her skin suggesting a golden-hour light source. Her pose is poised and elegant, with the fan held up to her cheek, revealing a serene expression with defined makeup and red lips. The environment is a classical garden with a pink-painted building featuring ornate windows, a stone-lined pond with orange fish, and weeping willows and cherry blossoms in the background. The lighting is soft and directional, casting gentle shadows and creating a warm, slightly hazy ambiance with a golden color temperature, while smoke or mist drifts through the background. The camera is positioned at eye level, capturing a medium shot that centers the woman as the focal point, with the composition balanced by the symmetrical lines of the architecture and the natural elements framing her from both sides.",
       "anything": [
-        "7",
+        "11",
         0
       ]
     },
     "class_type": "easy showAnything",
     "_meta": {
       "title": "Show Any"
-    }
-  },
-  "7": {
-    "inputs": {
-      "model_name": "Qwen3-VL-8B-Instruct",
-      "quantization": "None (FP16)",
-      "attention_mode": "auto",
-      "preset_prompt": "🖼️ Detailed Description",
-      "custom_prompt": "",
-      "max_tokens": 512,
-      "keep_model_loaded": true,
-      "seed": 3731918183,
-      "image": [
-        "8",
-        0
-      ]
-    },
-    "class_type": "AILab_QwenVL",
-    "_meta": {
-      "title": "QwenVL"
     }
   },
   "8": {
@@ -57,6 +37,71 @@
     "class_type": "ImageResize+",
     "_meta": {
       "title": "🔧 Image Resize"
+    }
+  },
+  "11": {
+    "inputs": {
+      "preset_prompt": "Normal - Describe",
+      "custom_prompt": " Write ONE detailed paragraph (6–10 sentences). Describe only what is visible: subject(s) and actions; people details if present (approx age group, gender expression if clear, hair, facial expression, pose, clothing, accessories); environment (location type, background elements, time cues); lighting (source, direction, softness/hardness, color temperature, shadows); camera viewpoint (eye-level/low/high, distance) and composition (framing, focal emphasis). No preface, no reasoning, no <think>.",
+      "system_prompt": "",
+      "inference_mode": "one by one",
+      "max_frames": 24,
+      "max_size": 256,
+      "seed": 365438341978634,
+      "force_offload": false,
+      "save_states": false,
+      "llama_model": [
+        "12",
+        0
+      ],
+      "parameters": [
+        "13",
+        0
+      ],
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "llama_cpp_instruct_adv",
+    "_meta": {
+      "title": "Llama-cpp Instruct"
+    }
+  },
+  "12": {
+    "inputs": {
+      "model": "Qwen3-VL-8B-Instruct-abliterated-v2.Q4_K_M.gguf",
+      "mmproj": "Qwen3-VL-8B-Instruct-abliterated-v2.mmproj-f16.gguf",
+      "chat_handler": "Qwen3-VL",
+      "n_ctx": 8192,
+      "vram_limit": -1,
+      "image_min_tokens": 0,
+      "image_max_tokens": 0
+    },
+    "class_type": "llama_cpp_model_loader",
+    "_meta": {
+      "title": "Llama-cpp Model Loader"
+    }
+  },
+  "13": {
+    "inputs": {
+      "max_tokens": 1024,
+      "top_k": 30,
+      "top_p": 0.9,
+      "min_p": 0.05,
+      "typical_p": 1,
+      "temperature": 0.8,
+      "repeat_penalty": 1,
+      "frequency_penalty": 0,
+      "presence_penalty": 1,
+      "mirostat_mode": 0,
+      "mirostat_eta": 0.1,
+      "mirostat_tau": 5,
+      "state_uid": -1
+    },
+    "class_type": "llama_cpp_parameters",
+    "_meta": {
+      "title": "Llama-cpp Parameters"
     }
   }
 }
