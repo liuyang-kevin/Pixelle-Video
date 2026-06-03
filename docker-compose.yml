@@ -1,5 +1,3 @@
-version: '3.8'
-
 # Build Arguments Configuration
 # You can override these by setting environment variables before running docker-compose
 #
@@ -54,7 +52,9 @@ services:
       # data/ contains: users/, bgm/, templates/, workflows/ (custom resources)
       - ./data:/app/data
       - ./output:/app/output
-      # Note: Default resources (bgm/, templates/, workflows/) are baked into the image
+      # Mount workflows/ so host edits are reflected live (no rebuild needed)
+      - ./workflows:/app/workflows
+      # Note: Default resources (bgm/, templates/) are baked into the image
       # Custom resources in data/* will override defaults
     user: "${UID:-1000}:${GID:-1000}"
     environment:
@@ -97,7 +97,9 @@ services:
       # data/ contains: users/, bgm/, templates/, workflows/ (custom resources)
       - ./data:/app/data
       - ./output:/app/output
-      # Note: Default resources (bgm/, templates/, workflows/) are baked into the image
+      # Mount workflows/ so host edits are reflected live (no rebuild needed)
+      - ./workflows:/app/workflows
+      # Note: Default resources (bgm/, templates/) are baked into the image
       # Custom resources in data/* will override defaults
     user: "${UID:-1000}:${GID:-1000}"
     environment:

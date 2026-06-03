@@ -1,0 +1,299 @@
+{
+  "97": {
+    "inputs": {
+      "image": "4f30670ca28de8b4d40ebe83261a2bf62104947517.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "$image.image"
+    }
+  },
+  "108": {
+    "inputs": {
+      "filename_prefix": "video/Wan2.2_image_to_video",
+      "format": "auto",
+      "codec": "auto",
+      "video": [
+        "130:117",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "保存视频"
+    }
+  },
+  "133": {
+    "inputs": {
+      "text": "月华流转的古街巷中，一位身着华美云锦古装的女子轻盈转身，发丝随风轻扬，指尖轻拨，手中团扇化作流光，她眸光流转，嘴角微扬，随即轻盈跃起，衣袂飘飘如云，足尖轻点石阶，裙摆随风舒展，背景中灯笼光影随风摇曳，云层缓缓流动，月光在她发间流转，烟雾从她指尖袅袅升腾，她轻盈落地，姿态优雅，仿佛从画卷中走出的仙子，整个画面充满动态的诗意与古典的韵律。"
+    },
+    "class_type": "WildPromptor_TextInput",
+    "_meta": {
+      "title": "$prompt.text"
+    }
+  },
+  "134": {
+    "inputs": {
+      "image": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "easy imageSize",
+    "_meta": {
+      "title": "图像尺寸"
+    }
+  },
+  "130:105": {
+    "inputs": {
+      "clip_name": "WAN/umt5_xxl_fp16.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "加载CLIP"
+    }
+  },
+  "130:106": {
+    "inputs": {
+      "vae_name": "WAN/wan_2.1_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "加载VAE"
+    }
+  },
+  "130:122": {
+    "inputs": {
+      "unet_name": "WAN2.2max/WAN2.2/Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNet加载器"
+    }
+  },
+  "130:123": {
+    "inputs": {
+      "unet_name": "WAN2.2max/WAN2.2/wan2.2_i2v_low_noise_14B_fp16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNet加载器"
+    }
+  },
+  "130:124": {
+    "inputs": {
+      "shift": 5.000000000000001,
+      "model": [
+        "130:127",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "采样算法（SD3）"
+    }
+  },
+  "130:107": {
+    "inputs": {
+      "text": [
+        "133",
+        0
+      ],
+      "clip": [
+        "130:105",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "130:125": {
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "clip": [
+        "130:105",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "130:126": {
+    "inputs": {
+      "lora_name": "WAN2.2/wan2.2_i2v_A14b_high_noise_lora_rank64_lightx2v_4step_1022.safetensors",
+      "strength_model": 1.0000000000000002,
+      "model": [
+        "130:122",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LoRA加载器（仅模型）"
+    }
+  },
+  "130:127": {
+    "inputs": {
+      "lora_name": "WAN2.2/wan2.2_i2v_A14b_low_noise_lora_rank64_lightx2v_4step_1022.safetensors",
+      "strength_model": 1.0000000000000002,
+      "model": [
+        "130:123",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LoRA加载器（仅模型）"
+    }
+  },
+  "130:109": {
+    "inputs": {
+      "shift": 5.000000000000001,
+      "model": [
+        "130:126",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "采样算法（SD3）"
+    }
+  },
+  "130:128": {
+    "inputs": {
+      "width": [
+        "134",
+        0
+      ],
+      "height": [
+        "134",
+        1
+      ],
+      "length": 81,
+      "batch_size": 1,
+      "positive": [
+        "130:107",
+        0
+      ],
+      "negative": [
+        "130:125",
+        0
+      ],
+      "vae": [
+        "130:106",
+        0
+      ],
+      "start_image": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideo",
+    "_meta": {
+      "title": "图像到视频（Wan）"
+    }
+  },
+  "130:110": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": 0,
+      "steps": 4,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "start_at_step": 0,
+      "end_at_step": 2,
+      "return_with_leftover_noise": "enable",
+      "model": [
+        "130:109",
+        0
+      ],
+      "positive": [
+        "130:128",
+        0
+      ],
+      "negative": [
+        "130:128",
+        1
+      ],
+      "latent_image": [
+        "130:128",
+        2
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "K采样器（高级）"
+    }
+  },
+  "130:111": {
+    "inputs": {
+      "add_noise": "disable",
+      "noise_seed": 0,
+      "steps": 4,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "start_at_step": 2,
+      "end_at_step": 4,
+      "return_with_leftover_noise": "disable",
+      "model": [
+        "130:124",
+        0
+      ],
+      "positive": [
+        "130:128",
+        0
+      ],
+      "negative": [
+        "130:128",
+        1
+      ],
+      "latent_image": [
+        "130:110",
+        0
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "K采样器（高级）"
+    }
+  },
+  "130:117": {
+    "inputs": {
+      "fps": 16,
+      "images": [
+        "130:129",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "创建视频"
+    }
+  },
+  "130:129": {
+    "inputs": {
+      "samples": [
+        "130:111",
+        0
+      ],
+      "vae": [
+        "130:106",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  }
+}

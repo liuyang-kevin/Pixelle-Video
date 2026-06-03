@@ -45,12 +45,17 @@ def check_and_warn_selfhost_workflow(workflow_path: str):
     Args:
         workflow_path: The workflow path (e.g., "selfhost/image_flux.json")
     """
+    # Disabled: this alert fired on every Streamlit rerun (refresh) because there
+    # is no previous-workflow state to detect an actual transition, so it popped
+    # up constantly. Return early to keep it off. Restore the block below to re-enable.
+    return
+
     if not workflow_path:
         return
-    
+
     # Check if this is a transition TO selfhost
     is_selfhost = workflow_path.startswith("selfhost/")
-    
+
     # Only show alert when transitioning TO selfhost
     if is_selfhost:
         _show_js_alert(workflow_path)
