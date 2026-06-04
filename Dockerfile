@@ -43,6 +43,13 @@ RUN uv --version
 COPY pyproject.toml uv.lock README.md ./
 COPY pixelle_video ./pixelle_video
 
+# Install Playwright browsers into a shared, world-readable path.
+# The container runs as a non-root user (uid 1000) with HOME=/tmp, so the
+# default per-user cache (~/.cache/ms-playwright under root's home) is
+# unreadable at runtime. Setting PLAYWRIGHT_BROWSERS_PATH as an ENV makes both
+# the build-time install AND the runtime launch resolve to the same location.
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
 # Create virtual environment and install dependencies
 # Use -i flag to specify mirror when USE_CN_MIRROR=true
 RUN export UV_HTTP_TIMEOUT=300 && \
@@ -52,7 +59,8 @@ RUN export UV_HTTP_TIMEOUT=300 && \
     else \
         uv pip install -e .; \
     fi && \
-    uv run playwright install --with-deps chromium
+    uv run playwright install --with-deps chromium && \
+    chmod -R a+rX /ms-playwright
 
 # Copy rest of application code
 COPY api ./api

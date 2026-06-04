@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="template:media-width" content="1280">
+    <meta name="template:media-height" content="720">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>极简科技 - 1920x1080</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --accent: #38e0ff;
+            --accent-soft: rgba(56, 224, 255, 0.55);
+            --ink: #f5fbff;
+            --muted: rgba(220, 235, 245, 0.72);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+        }
+
+        body {
+            position: relative;
+            color: var(--ink);
+            background: #05080f;
+            font-family: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 全屏背景图 */
+        .bg {
+            position: absolute;
+            inset: 0;
+            background-image: url("{{image}}");
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        /* 暗角 + 底部渐隐，保证文字可读 */
+        .scrim {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(180deg, rgba(5, 8, 15, 0.55) 0%, rgba(5, 8, 15, 0) 28%),
+                linear-gradient(0deg, rgba(5, 8, 15, 0.92) 0%, rgba(5, 8, 15, 0.45) 22%, rgba(5, 8, 15, 0) 48%),
+                radial-gradient(120% 120% at 50% 40%, rgba(5, 8, 15, 0) 55%, rgba(5, 8, 15, 0.55) 100%);
+        }
+
+        /* 极细科技网格，克制不抢图 */
+        .grid {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background-image:
+                linear-gradient(rgba(56, 224, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 224, 255, 0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(130% 100% at 50% 100%, #000 35%, transparent 80%);
+            -webkit-mask-image: radial-gradient(130% 100% at 50% 100%, #000 35%, transparent 80%);
+        }
+
+        /* HUD 四角框 */
+        .hud {
+            position: absolute;
+            inset: 56px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .corner {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--accent-soft);
+            filter: drop-shadow(0 0 10px rgba(56, 224, 255, 0.35));
+        }
+
+        .corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        /* 内容层 */
+        .content {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            /* 底部留出页脚空间，避免正文与 author/brand 重叠 */
+            padding: 96px 120px 230px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部标签栏 */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: 'Share Tech Mono', 'Inter', monospace;
+            font-size: 22px;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .topbar .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 16px var(--accent);
+        }
+
+        .topbar .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-soft), transparent);
+        }
+
+        /* 主标题与正文锚定底部左侧 */
+        .lower {
+            margin-top: auto;
+            max-width: 1400px;
+        }
+
+        .kicker {
+            font-family: 'Share Tech Mono', 'Inter', monospace;
+            font-size: 24px;
+            letter-spacing: 6px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 26px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .kicker::before {
+            content: "";
+            width: 56px;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 14px var(--accent);
+        }
+
+        .title {
+            font-family: 'Inter', 'Noto Sans SC', 'PingFang SC', sans-serif;
+            font-size: 104px;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            text-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
+        }
+
+        .title-rule {
+            width: 220px;
+            height: 4px;
+            margin: 34px 0 30px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            box-shadow: 0 0 18px var(--accent-soft);
+        }
+
+        .text {
+            font-family: 'Noto Sans SC', 'Inter', 'PingFang SC', sans-serif;
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--muted);
+            max-width: 1180px;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 底部页脚 */
+        .footer {
+            position: absolute;
+            left: 120px;
+            right: 120px;
+            bottom: 64px;
+            z-index: 4;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .author {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .author-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .author-name .tick {
+            width: 10px;
+            height: 18px;
+            background: var(--accent);
+            box-shadow: 0 0 14px var(--accent);
+        }
+
+        .author-desc {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .brand-name {
+            font-family: 'Share Tech Mono', 'Inter', monospace;
+            font-size: 26px;
+            letter-spacing: 3px;
+            color: var(--ink);
+        }
+
+        .brand-bars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .brand-bars span {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--accent);
+            box-shadow: 0 0 14px var(--accent-soft);
+            opacity: 0.4;
+        }
+
+        .brand-bars span:nth-child(1) { width: 70px; opacity: 1; }
+        .brand-bars span:nth-child(2) { width: 40px; }
+        .brand-bars span:nth-child(3) { width: 24px; }
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="scrim"></div>
+    <div class="grid"></div>
+
+    <div class="hud">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+    </div>
+
+    <div class="content">
+        <div class="topbar">
+            <span class="dot"></span>
+            <span>{{tag=AI · GENERATED}}</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="lower">
+            <div class="kicker">{{kicker=PIXELLE VIDEO}}</div>
+            <div class="title">{{title}}</div>
+            <div class="title-rule"></div>
+            <div class="text">{{text}}</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="author">
+            <div class="author-name">
+                <span class="tick"></span>
+                <span>{{author=@SYBB}}</span>
+            </div>
+            <div class="author-desc">{{describe=学一点是一点}}</div>
+        </div>
+        <div class="brand">
+            <div class="brand-name">{{brand=sybb.space}}</div>
+            <div class="brand-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
